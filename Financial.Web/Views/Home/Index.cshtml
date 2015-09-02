@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Account startpage";
 }
 
 <div class="jumbotron">
@@ -8,20 +8,18 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <h2>Services that we provide are:</h2>
-        <p>
-            You can create custom budget categories, as well as utilize the provided default categories.
-        </p>
+        <ul>
+            <li>You can create custom budget categories, as well as utilize the provided default categories.</li>
+            <li>You can insert transactions related to a specific budget.</li>
+            <li>We also provide the ability to set budget limits on each category, and display the remainder of the alloted amount.</li>
+        </ul>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Ready to sign-up?</h2>
+        <a class="btn btn-primary" href="@Url.Action("Register", "Account")">Get started now!</a>
+        <h4>Already have a login?</h4>
+        <a class="btn btn-default" href="@Url.Action("Login", "Account")">Log-in here</a>
     </div>
 </div>

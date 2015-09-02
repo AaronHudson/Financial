@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Financial.Web.Models.Budget>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron">
+    <h1>Welcome @User.Identity.Name!</h1>
+    <p class="lead">Feel free to browse your budgets, or go ahead and add some transactions below.</p>
+    <a class="btn btn-primary" href="@Url.Action("CreateTransaction", "Home")">Add a transaction</a>
+</div>
+
+<div class="row">
+    <div>
+        @Html.DisplayFor(Model => Model)
+    </div>
+</div>
