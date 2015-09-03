@@ -36,7 +36,7 @@ textarea {
     width: 100%;
     height: 100%;
     z-index: 1;
-    opacity: 0.6;
+    opacity: 0.4;
     background-image: url('https://c1.staticflickr.com/1/26/61056391_31343afdc6_b.jpg');
     background-repeat: no-repeat;
     background-position: 50% 0;
@@ -56,3 +56,9 @@ textarea {
     z-index: 2;
     position: relative;
 }
+
+.jumbotron a {
+    z-index: 2;
+    position: relative;
+}
+

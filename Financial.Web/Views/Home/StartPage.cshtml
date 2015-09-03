@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Financial.Web.Models.Budget>
+﻿@model IEnumerable<Financial.Web.Models.Category>
 
 @{
     ViewBag.Title = "Index";
@@ -7,11 +7,38 @@
 <div class="jumbotron">
     <h1>Welcome @User.Identity.Name!</h1>
     <p class="lead">Feel free to browse your budgets, or go ahead and add some transactions below.</p>
-    <a class="btn btn-primary" href="@Url.Action("CreateTransaction", "Home")">Add a transaction</a>
+    <a class="btn btn-primary" href="@Url.Action("Create", "Transactions")">Add a transaction</a>
 </div>
 
 <div class="row">
     <div>
-        @Html.DisplayFor(Model => Model)
+        <table class="table">
+            <tr>
+                <td>
+                    Budget
+                </td>
+                <td>
+                    Available
+                </td>
+                <td>
+                    Limit
+                </td>
+            </tr>
+            @foreach (Financial.Web.Models.Category budget in Model ) {
+            <tr>
+                <td>
+                    @Html.ActionLink(budget.Title , "Budget", new { id = budget.Id })
+                    <hr />
+                    @budget.Description
+                </td>
+                <td>
+                    @budget.Remainder.ToString()
+                </td>
+                <td>
+                    @budget.Limit.ToString()
+                </td>
+            </tr>
+            }
+        </table>
     </div>
-</div>
+    </div>

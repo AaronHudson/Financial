@@ -21,14 +21,15 @@ namespace Financial.Web.Controllers
 
         public ActionResult StartPage()
         {
-            FinancialtronUser user = db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            List<Budget> budgets = user.Budgets.ToList();
+            ApplicationUser user = db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            List<Category> budgets = user.Budgets.ToList();
             return View(budgets);
         }
 
-        public ActionResult AddTransaction()
+        public ActionResult Budget(int Id)
         {
-            return View();
+            Category budget = db.Budgets.Find(Id);
+            return View(budget.Transactions.ToList());
         }
 
         //public ActionResult About()

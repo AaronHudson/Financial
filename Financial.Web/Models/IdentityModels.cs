@@ -4,18 +4,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System;
 
 namespace Financial.Web.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class FinancialtronUser : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
 
-        public List<Budget> Budgets { get; set; }
-        public List<Transaction> Transactions { get; set; }
+        public virtual List<Category> Budgets { get; set; }
+        public virtual List<Transaction> Transactions { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<FinancialtronUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
+            SecurityStamp = Guid.NewGuid().ToString();
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
@@ -23,7 +25,7 @@ namespace Financial.Web.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<FinancialtronUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -34,5 +36,8 @@ namespace Financial.Web.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Category> Budgets { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }
