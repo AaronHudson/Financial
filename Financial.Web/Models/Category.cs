@@ -10,6 +10,7 @@ namespace Financial.Web.Models
     {
         public int Id { get; set; }
         public virtual List<Transaction> Transactions { get; set; }
+        public Budget Budget { get; set; }
         public decimal Limit { get; set; }
         public ApplicationUser User { get; set; }
         public string Title { get; set; }

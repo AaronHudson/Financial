@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System;
+using System.Collections.ObjectModel;
 
 namespace Financial.Web.Models
 {
@@ -12,8 +13,9 @@ namespace Financial.Web.Models
     public class ApplicationUser : IdentityUser
     {
 
-        public virtual List<Category> Budgets { get; set; }
-        public virtual List<Transaction> Transactions { get; set; }
+        public virtual Collection<Category> Categories { get; set; }
+        public virtual Collection<Transaction> Transactions { get; set; }
+        public virtual Collection<Budget> Budgets { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

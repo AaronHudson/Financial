@@ -16,20 +16,25 @@ namespace Financial.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            if (Request.IsAuthenticated)
+                return RedirectToAction("StartPage");
+
             return View();
         }
 
         public ActionResult StartPage()
         {
             ApplicationUser user = db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            List<Category> budgets = user.Budgets.ToList();
-            return View(budgets);
+            // ViewBag.Title = budget.Title;
+            List<Category> categories = user.Categories.ToList();
+            return View(categories);
         }
 
-        public ActionResult Budget(int Id)
+        public ActionResult Category(int Id)
         {
-            Category budget = db.Budgets.Find(Id);
-            return View(budget.Transactions.ToList());
+            Category category = db.Budgets.Find(Id);
+            ViewBag.Title = category.Title;
+            return View(category.Transactions.ToList());
         }
 
         //public ActionResult About()

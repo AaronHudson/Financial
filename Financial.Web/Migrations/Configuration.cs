@@ -7,6 +7,7 @@ namespace Financial.Web.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Financial.Web.Models.ApplicationDbContext>
     {
@@ -38,7 +39,7 @@ namespace Financial.Web.Migrations
                 {
                     UserName = "aaron@hudson.net",
                     PasswordHash = password,
-                    Budgets = new List<Category>
+                    Categories = new Collection<Category>
                     {
                         new Category
                         {
@@ -85,7 +86,7 @@ namespace Financial.Web.Migrations
                 {
                     UserName = "scott@furgeson.net",
                     PasswordHash = password,
-                    Budgets = new List<Category>
+                    Categories = new Collection<Category>
                     {
                         new Category
                         {
