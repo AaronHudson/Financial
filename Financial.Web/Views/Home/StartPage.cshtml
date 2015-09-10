@@ -1,14 +1,14 @@
-﻿@model IEnumerable<Financial.Web.Models.Category>
+﻿@model IEnumerable<Financial.Web.Models.Budget>
 
 @{
-    ViewBag.Title.ToString();
+    ViewBag.Title = User.Identity.ToString() + "'s budgets";
 }
 
 <div class="jumbotron">
     <h1>Welcome @User.Identity.Name!</h1>
     <p class="lead">Feel free to browse your categories, or go ahead and add some transactions below.</p>
     <a class="btn btn-primary" href="@Url.Action("Create", "Transactions")">Add a transaction</a>
-    <a class="btn btn-primary" href="@Url.Action("Create", "Home")">Add a transaction</a>
+    <a class="btn btn-primary" href="@Url.Action("Create", "Budgets")">Add a budget</a>
 </div>
 
 <div class="row">
@@ -16,27 +16,13 @@
         <table class="table">
             <tr>
                 <td>
-                    Category
-                </td>
-                <td>
-                    Available
-                </td>
-                <td>
-                    Limit
+                    Budget
                 </td>
             </tr>
-            @foreach (Financial.Web.Models.Category category in Model ) {
+            @foreach (Financial.Web.Models.Budget budget in Model ) {
             <tr>
                 <td>
-                    @Html.ActionLink(category.Title , "Budget", new { id = category.Id })
-                    <hr />
-                    @category.Description
-                </td>
-                <td>
-                    @category.Remainder.ToString()
-                </td>
-                <td>
-                    @category.Limit.ToString()
+                    @Html.ActionLink(budget.Title , "Budget", "Budgets", new { id = budget.Id }, null)
                 </td>
             </tr>
             }

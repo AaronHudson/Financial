@@ -13,9 +13,7 @@ namespace Financial.Web.Models
     public class ApplicationUser : IdentityUser
     {
 
-        public virtual Collection<Category> Categories { get; set; }
-        public virtual Collection<Transaction> Transactions { get; set; }
-        public virtual Collection<Budget> Budgets { get; set; }
+        public virtual ICollection<Budget> Budgets { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -34,12 +32,28 @@ namespace Financial.Web.Models
         {
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+            .HasMany(b => b.Budgets).WithMany(u => u.Users)
+            .Map(t =>
+            {
+                t.ToTable("UserBudgets");
+                t.MapLeftKey("Budget");
+                t.MapRightKey("ApplicationUser");
+            }
+            );
+        }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
 
-        public DbSet<Category> Budgets { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
     }
 }

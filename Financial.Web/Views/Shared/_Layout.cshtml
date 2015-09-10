@@ -10,10 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="container body-content col-md-offset-2 col-md-10 pull-right">
-            @RenderBody()
-        </div>
-        <div class="col-md-2 navbar navbar-inverse navbar-left navbar-fixed-top pull-left">
+        <div class="col-md-2 navbar navbar-inverse navbar-left navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -35,6 +32,10 @@
                 </div>
             </div>
         </div>
+        <div class="container body-content col-md-offset-2 col-md-10">
+            @RenderBody()
+        </div>
+
     </div>
         <hr />
         <footer>

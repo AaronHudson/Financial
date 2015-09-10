@@ -1,13 +1,13 @@
 namespace Financial.Web.Migrations
 {
-    using Models;
     using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
     using System;
+    using System.Collections.ObjectModel;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Financial.Web.Models.ApplicationDbContext>
     {
@@ -31,22 +31,24 @@ namespace Financial.Web.Migrations
             //    );
             //
 
-            var passwordHash = new PasswordHasher();
-            string password = passwordHash.HashPassword("Password@123");
-            context.Users.AddOrUpdate(
-                x => x.UserName,
-                new ApplicationUser
-                {
-                    UserName = "aaron@hudson.net",
-                    PasswordHash = password,
-                    Categories = new Collection<Category>
+            var store = new UserStore<ApplicationUser>(context);
+            var manager = new ApplicationUserManager(store);
+            var aaron = new ApplicationUser()
+            {
+                UserName = "aaron@hudson.net",
+                Budgets = new Collection<Budget>
+                    {
+                        new Budget {
+                            Title = "Main Budget",
+                            Description = "My defualt budget",
+                        Categories = new Collection<Category>
                     {
                         new Category
                         {
                             Title = "Eating Out",
                             Description = "Available funds to purchase food that is not home-cooked.",
                             Limit = 120m,
-                            Transactions = new List<Transaction>
+                            Transactions = new Collection<Transaction>
                             {
                                 new Transaction
                                 {
@@ -69,7 +71,7 @@ namespace Financial.Web.Migrations
                             Title = "Shopping",
                             Description = "Available funds to purchase wants and necessities purchaseable at a store.",
                             Limit = 500m,
-                            Transactions = new List<Transaction>
+                            Transactions = new Collection<Transaction>
                             {
                                 new Transaction
                                 {
@@ -81,32 +83,42 @@ namespace Financial.Web.Migrations
                             }
                         }
                     }
-                },
-                new ApplicationUser
-                {
-                    UserName = "scott@furgeson.net",
-                    PasswordHash = password,
-                    Categories = new Collection<Category>
-                    {
-                        new Category
-                        {
-                        Title = "Movies",
-                        Description = "I LIKE THE MOVIES!",
-                        Limit = 45m,
-                        Transactions = new List<Transaction>
-                        {
-                            new Transaction
-                            {
-                                Title = "The Iron Yard",
-                                Description = "Saw The Iron Yard",
-                                Amount = 8m,
-                                CreatedOn = DateTime.Now
-                            }
-                        }
-                        }
                     }
                 }
-             );
+            };
+            manager.Create(aaron, "Password@123");
+            var scott = new ApplicationUser()
+            {
+                UserName = "scott@furgeson.net",
+                Budgets = new Collection<Budget>
+                    {
+                        new Budget
+                        {
+                            Title = "Main Budget",
+                            Description = "My defualt budget",
+                            Categories = new Collection<Category>
+                                {
+                                new Category
+                                    {
+                                    Title = "Movies",
+                                    Description = "I LIKE THE MOVIES!",
+                                    Limit = 45m,
+                                    Transactions = new Collection<Transaction>
+                                    {
+                                        new Transaction
+                                        {
+                                            Title = "The Iron Yard",
+                                            Description = "Saw The Iron Yard",
+                                            Amount = 8m,
+                                            CreatedOn = DateTime.Now
+                                        }
+                                    }
+                                    }
+                                }
+                            }
+                    }
+            };
+            manager.Create(scott, "Password@123");
 
         }
     }

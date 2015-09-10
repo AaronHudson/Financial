@@ -1,0 +1,43 @@
+﻿@model Financial.Web.Models.Budget
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div>
+    <h4>@Model.Title</h4>
+    <hr />
+    <table class="table">
+        <tr>
+            <td>
+                Category
+            </td>
+            <td>
+                Available
+            </td>
+            <td>
+                Limit
+            </td>
+        </tr>
+        @foreach (Financial.Web.Models.Category category in Model.Categories)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(category.Title, "Budget", new { id = category.Id })
+                    <hr />
+                    @category.Description
+                </td>
+                <td>
+                    @category.Remainder.ToString()
+                </td>
+                <td>
+                    @category.Limit.ToString()
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

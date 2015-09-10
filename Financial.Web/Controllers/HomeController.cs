@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -25,30 +26,23 @@ namespace Financial.Web.Controllers
         public ActionResult StartPage()
         {
             ApplicationUser user = db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            // ViewBag.Title = budget.Title;
-            List<Category> categories = user.Categories.ToList();
-            return View(categories);
+            List<Budget> budgets = user.Budgets.ToList();
+            return View(budgets);
         }
 
         public ActionResult Category(int Id)
         {
-            Category category = db.Budgets.Find(Id);
-            ViewBag.Title = category.Title;
+            Category category = db.Categories.Find(Id);
             return View(category.Transactions.ToList());
         }
-
-        //public ActionResult About()
-        //{
-        //    ViewBag.Message = "Your application description page.";
-
-        //    return View();
-        //}
-
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
-
-        //    return View();
-        //}
+        
+        public ActionResult ShareBudget(string[] userNames, int budgetId)
+        {
+            foreach (var userName in userNames)
+            {
+                db.Users.FirstOrDefault(user => user.UserName == userName).Budgets.Add(db.Budgets.Find(budgetId));
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
     }
 }

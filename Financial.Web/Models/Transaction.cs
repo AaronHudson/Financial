@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace Financial.Web.Models
 {
@@ -7,8 +8,7 @@ namespace Financial.Web.Models
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
         public decimal Amount { get; set; }
-        public Category Budget { get; set; }
-        public ApplicationUser User { get; set; }
+        public Category Category { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
     }

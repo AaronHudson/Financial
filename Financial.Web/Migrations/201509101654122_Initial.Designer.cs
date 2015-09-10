@@ -7,13 +7,13 @@ namespace Financial.Web.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class ChangedBudgetsToCategoriesAndAddedBudgets : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangedBudgetsToCategoriesAndAddedBudgets));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201509031926269_ChangedBudgetsToCategoriesAndAddedBudgets"; }
+            get { return "201509101654122_Initial"; }
         }
         
         string IMigrationMetadata.Source
