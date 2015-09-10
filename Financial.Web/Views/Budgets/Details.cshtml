@@ -38,6 +38,7 @@
     </table>
 </div>
 <p>
+    @Html.ActionLink("Create a category", "Create", "Categories", new { id = Model.Id }, null)
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

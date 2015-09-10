@@ -22,7 +22,7 @@
             @foreach (Financial.Web.Models.Budget budget in Model ) {
             <tr>
                 <td>
-                    @Html.ActionLink(budget.Title , "Budget", "Budgets", new { id = budget.Id }, null)
+                    @Html.ActionLink(budget.Title , "Details", "Budgets", new { id = budget.Id }, null)
                 </td>
             </tr>
             }
