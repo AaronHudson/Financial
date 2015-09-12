@@ -16,7 +16,7 @@ namespace Financial.Web.Models
         public string Title { get; set; }
         public string Description { get; set; }
         [NotMapped]
-        public decimal Remainder
+        public decimal Balance
         {
             get
             {
@@ -25,7 +25,7 @@ namespace Financial.Web.Models
                 {
                     sum += transaction.Amount;
                 }
-                return Limit - sum;
+                return sum;
             }
         }
     }
