@@ -27,6 +27,15 @@ namespace Financial.Web.Controllers
 
         public ActionResult StartPage()
         {
+            Transaction transaction = db.Transactions.FirstOrDefault();
+            var something = db.Categories.Where(c => c.Id == transaction.Category.Id)
+                    .Select(g => new
+                    {
+                        Balance = g.Balance,
+                        Limit = g.Limit,
+                        BudgetId = g.Budget.Id
+                    });
+            ////
             ApplicationUser user = db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId());
             List<Budget> budgets = user.Budgets.ToList();
             return View(budgets);
@@ -48,7 +57,7 @@ namespace Financial.Web.Controllers
             }
             return Json(balances);
         }
-        
+
         public ActionResult ShareBudget(string[] userNames, int budgetId)
         {
             foreach (var userName in userNames)
@@ -58,7 +67,7 @@ namespace Financial.Web.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        public static void EmailNotification(ApplicationUser user, Transaction transaction, Category category)
+        public static void EmailNotification(List<string> users, Transaction transaction, Category category)
         {
             // Create the email object first, then add the properties.
             var myMessage = new SendGridMessage();
@@ -66,9 +75,7 @@ namespace Financial.Web.Controllers
             // Add the message properties.
             myMessage.From = new MailAddress("aaron.hudson18@gmail.com");
 
-            string reciepient = user.UserName.ToString();
-
-            myMessage.AddTo(reciepient);
+            myMessage.AddTo(users);
 
             myMessage.Subject = String.Format("{0} is over its limit.", category.ToString());
             myMessage.Text = String.Format("{0} has either reached, or surpassed its limit of {1}. It's current balance is {2}./n/nMost recent transaction: {3}/nDescription: {4}/nDate: {5}/nAmount: {6}", category.ToString(), category.Limit.ToString(), category.Balance.ToString(), transaction.Title, transaction.Description, transaction.CreatedOn, transaction.Amount);

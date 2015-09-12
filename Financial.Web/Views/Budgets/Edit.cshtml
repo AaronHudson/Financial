@@ -41,5 +41,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(String.Format("Back to {0}", Model.Title), "Details", new { id = Model.Id })
 </div>

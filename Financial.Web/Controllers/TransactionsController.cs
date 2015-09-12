@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Financial.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Financial.Web.Controllers
 {
@@ -15,23 +16,43 @@ namespace Financial.Web.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Create()
+        public ActionResult Create(int categoryId)
         {
-            return View();
+            TransactionVM transaction = new TransactionVM();
+            transaction.CategoryId = categoryId;
+            return View(transaction);
         }
 
-        [HttpPost]
+        [HttpPost] 
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CreatedOn,Amount,Title,Description")] Transaction transaction)
+        public ActionResult Create([Bind(Include = "CategoryId,Amount,Title,Description")] TransactionVM transactionVM)
         {
             if (ModelState.IsValid)
             {
+                Category category = db.Categories.Find(transactionVM.CategoryId);
+
+                Transaction transaction = new Transaction();
+                transaction.Amount = transactionVM.Amount;
+                transaction.CreatedOn = DateTime.Now;
+                transaction.Description = transactionVM.Description;
+                transaction.Title = transactionVM.Title;
+                transaction.Category = category;
+
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
+
+                // Checking to see if an email must be sent off
+                if (category.Balance > category.Limit)
+                {
+                    List<string> users = new List<string>();
+                    users.AddRange(db.Budgets.Find(category.Budget.Id).Users.Select(user => user.UserName).ToList());
+                    HomeController.EmailNotification(users, transaction, category);
+                }
+
                 return RedirectToAction("StartPage", "Home");
             }
 
-            return View(transaction);
+            return View(transactionVM);
         }
 
         public ActionResult Edit(int? id)
@@ -56,6 +77,24 @@ namespace Financial.Web.Controllers
             {
                 db.Entry(transaction).State = EntityState.Modified;
                 db.SaveChanges();
+
+                // Checking to see if an email must be sent off
+                Category category = db.Categories.Find(transaction.Category.Id);
+                var something = db.Categories.Where(c => c.Id == transaction.Category.Id)
+                    .Select(g => new
+                    {
+                        Balance = g.Balance,
+                        Limit = g.Limit,
+                        BudgetId = g.Budget.Id
+                    });
+                if (category.Balance > category.Limit)
+                {
+
+                    List<string> users = new List<string>();
+                    users.AddRange(db.Budgets.Find(category.Budget.Id).Users.Select(user => user.UserName).ToList());
+                    HomeController.EmailNotification(users, transaction, category);
+                }
+
                 return RedirectToAction("StartPage", "Home");
             }
             return View(transaction);

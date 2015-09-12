@@ -38,6 +38,8 @@
             </div>
         </div>
 
+        @Html.HiddenFor(model => model.BudgetId)
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -47,5 +49,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "StartPage", "Home")
+    @Html.ActionLink("Back to budgets", "StartPage", "Home")
 </div>

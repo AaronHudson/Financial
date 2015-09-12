@@ -23,12 +23,12 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(category.Title, "Budget", new { id = category.Id })
+                    @Html.ActionLink(category.Title, "Details", "Categories", new { id = category.Id }, null)
                     <hr />
                     @category.Description
                 </td>
                 <td>
-                    @category.Remainder.ToString()
+                    @category.Balance.ToString()
                 </td>
                 <td>
                     @category.Limit.ToString()
@@ -38,7 +38,7 @@
     </table>
 </div>
 <p>
-    @Html.ActionLink("Create a category", "Create", "Categories", new { id = Model.Id }, null)
+    @Html.ActionLink("Create a category", "Create", "Categories", new { categoryId = Model.Id }, null) |
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to budgets", "StartPage", "Home")
 </p>

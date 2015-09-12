@@ -11,32 +11,36 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Limit)
+            Created On
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Limit)
-        </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            Description
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
+        <dt>
+            Amount
+        </dt>
+        @foreach (var item in Model.Transactions)
+        {
+            <dd>
+                @item.CreatedOn
+            </dd>
+            <dd>
+                @item.Title
+            </dd>
+            <dd>
+                @item.Description
+            </dd>
+            <dd>
+                @item.Amount
+            </dd>
+        }
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to budgets", "StartPage", "Home") |
+    @Html.ActionLink("Add a transaction", "Create", "Transactions", new { budgetId = Model.Id }, null)
 </p>

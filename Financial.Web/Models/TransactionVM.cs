@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Financial.Web.Models;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace Financial.Web.Models
 {
     [NotMapped]
-    public class CategoryVM
+    public class TransactionVM
     {
-        public decimal Limit { get; set; }
+        public int CategoryId { get; set; }
+        public decimal Amount { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public int BudgetId { get; set; }
     }
 }

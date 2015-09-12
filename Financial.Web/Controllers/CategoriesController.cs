@@ -29,10 +29,10 @@ namespace Financial.Web.Controllers
             return View(category);
         }
 
-        public ActionResult Create(int Id)
+        public ActionResult Create(int categoryId)
         {
             CategoryVM vm = new CategoryVM();
-            vm.BudgetId = Id;
+            vm.BudgetId = categoryId;
             return View(vm);
         }
 
@@ -47,6 +47,7 @@ namespace Financial.Web.Controllers
                 category.Limit = categoryVM.Limit;
                 category.Title = categoryVM.Title;
                 category.Budget = db.Budgets.Find(categoryVM.BudgetId);
+
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("StartPage", "Home");

@@ -1,4 +1,4 @@
-﻿@model Financial.Web.Models.Transaction
+﻿@model Financial.Web.Models.TransactionVM
 
 @{
     ViewBag.Title = "Create";
@@ -45,6 +45,8 @@
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        @Html.HiddenFor(model => model.CategoryId)
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
