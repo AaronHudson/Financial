@@ -21,7 +21,7 @@
             Categories
         </a>
         <ul class="dropdown-menu">
-            <li><a href="@Url.Action("Details", "Budgets", new { id = Model.CurrentBudget })">All Categories</a></li>
+            <li><a href="@Url.Action("Details", "Categories", new { id = Model.CurrentBudget })">All Categories</a></li>
             @foreach (KeyValuePair<string, int> category in Model.Categories)
             {
                 <li><a href="@Url.Action("Details", "Categories", new { id = category.Value })">@category.Key</a></li>
