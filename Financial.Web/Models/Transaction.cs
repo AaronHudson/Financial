@@ -19,10 +19,7 @@ namespace Financial.Web.Models
         {
             get
             {
-                decimal formatter = 1m;
-                decimal dollars = this.Amount / formatter;
-                decimal cents = this.Amount % formatter;
-                return String.Format("${0}.{1}", dollars, cents);
+                return String.Format("{0:C}", this.Amount);
             }
         }
     }

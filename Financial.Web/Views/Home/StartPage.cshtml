@@ -25,7 +25,7 @@
             @foreach (var budget in Model)
             {
             <tr>
-                <td>@budget.Title</td>
+                <td>@Html.ActionLink(budget.Title, "Details", "Budgets", new { id = budget.Id }, null)</td>
                 <td>@budget.Description</td>
                 <td>@for (int i = 0; i < budget.Users.Count(); i++)
                 {
@@ -35,12 +35,10 @@
                         break;
                     }
                     String.Format("{0}, ", budget.Users.ElementAt(i).UserName);
-                } 
-                @foreach (var user in budget.Users)
-                {
-                    user.UserName.ToString();
-                }</td>
+                }
+                </td>
                 <td>@budget.Categories.Count()</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Budgets", new { id = budget.Id }, null) | @Html.ActionLink("Delete", "Delete", "Budgets", new { id = budget.Id }, null)</td>
             </tr>
             }
         </tbody>

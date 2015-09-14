@@ -140,7 +140,7 @@ namespace Financial.Web.Controllers
             myMessage.AddTo(users);
 
             myMessage.Subject = String.Format("{0} is over its limit.", category.Title);
-            myMessage.Text = String.Format("{0} has either reached, or surpassed its limit of {1}. It's current balance is {2}.\r\nMost recent transaction: {3}\r\nDescription: {4}\r\nDate: {5}\r\nAmount: {6}", category.Title, category.Limit, category.Balance, transaction.Title, transaction.Description, transaction.CreatedOn, transaction.FormatedAmount);
+            myMessage.Text = String.Format("{0} has either reached, or surpassed its limit of {1:C}. It's current balance is {2:C}.\r\nMost recent transaction: {3}\r\nDescription: {4}\r\nDate: {5}\r\nAmount: {6}", category.Title, category.Limit, category.Balance, transaction.Title, transaction.Description, transaction.CreatedOn, transaction.FormatedAmount);
 
             var credentials = new NetworkCredential("aaron.hudson18@gmail.com", "Password@123");
             var transportWeb = new SendGrid.Web(credentials);

@@ -4,43 +4,37 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Category</h4>
+    <h4>@Model.Title</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Created On
-        </dt>
-        <dt>
-            Title
-        </dt>
-        <dt>
-            Description
-        </dt>
-        <dt>
-            Amount
-        </dt>
-        @foreach (var item in Model.Transactions)
-        {
-            <dd>
-                @item.CreatedOn
-            </dd>
-            <dd>
-                @item.Title
-            </dd>
-            <dd>
-                @item.Description
-            </dd>
-            <dd>
-                @item.Amount
-            </dd>
-        }
-    </dl>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Added On</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var transaction in Model.Transactions)
+                {
+                    <tr>
+                        <td>@transaction.Title</td>
+                        <td>@transaction.Description</td>
+                        <td>@transaction.FormatedAmount</td>
+                        <td>@transaction.CreatedOn</td>
+                        <td>@Html.ActionLink("Edit", "Edit", "Transactions", new { id = transaction.Id }, null) | @Html.ActionLink("Delete", "Delete", "Transactions", new { id = transaction.Id }, null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to budgets", "StartPage", "Home") |
     @Html.ActionLink("Add a transaction", "Create", "Transactions", new { categoryId = Model.Id }, null)
 </p>
+ 
