@@ -104,6 +104,16 @@ namespace Financial.Web.Controllers
             return View(budgets);
         }
 
+        public ActionResult Graph(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(id);
+        }
+
         public ActionResult CategoryAmounts(int Id)
         {
             Budget budget = db.Budgets.Find(Id);

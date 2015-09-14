@@ -17,7 +17,6 @@ namespace Financial.Web.Models
         public decimal Limit { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        [NotMapped]
         public decimal Balance
         {
             get

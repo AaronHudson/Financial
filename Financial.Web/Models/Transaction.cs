@@ -14,7 +14,6 @@ namespace Financial.Web.Models
         public virtual Category Category { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        [NotMapped]
         public string FormatedAmount
         {
             get
