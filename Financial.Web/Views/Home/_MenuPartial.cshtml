@@ -1,0 +1,32 @@
+﻿@model Financial.Web.Models.MenuVM
+
+<ul class="nav nav-pills nav-stacked col-md-3">
+    <li class="active"><a class="home" href="#">Home</a></li>
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Budgets
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("StartPage", "Home")">All Budgets</a></li>
+            @foreach (KeyValuePair<string, int> budget in Model.Budgets)
+            {
+                <li><a href="@Url.Action("Details", "Budgets", new { id = budget.Value })">@budget.Key</a></li>
+            }
+        </ul>
+    </li>
+    @if (Model.HasCategories)
+    {
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Categories
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Action("Details", "Budgets", new { id = Model.CurrentBudget })">All Categories</a></li>
+            @foreach (KeyValuePair<string, int> category in Model.Categories)
+            {
+                <li><a href="@Url.Action("Details", "Categories", new { id = category.Value })">@category.Key</a></li>
+            }
+        </ul>
+    </li>
+    }
+</ul>

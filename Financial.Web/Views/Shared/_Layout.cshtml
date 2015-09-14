@@ -10,40 +10,111 @@
 </head>
 <body>
     <div class="container">
-        <div class="col-md-2 navbar navbar-inverse navbar-left navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>*@
-                    @Html.ActionLink("Financialtron", "StartPage", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        @*<div class="col-md-2 affix">
+                <div class="container">
+                    <div class="navbar-header">
+                        @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @Html.ActionLink("Financialtron", "StartPage", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav nav-stacked">
+                            <li>@Html.ActionLink("StartPage", "StartPage", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        @Html.Partial("_LoginPartial")
+                    </div>
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav nav-stacked">
-                        <li>@Html.ActionLink("StartPage", "StartPage", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                </div>
-                <div class="navbar-collapse collapse">
-                    @Html.Partial("_LoginPartial")
+            </div>*@
+        <div class="container">
+            <div class="row">
+                @*<ul class="nav nav-pills nav-stacked col-md-3">
+                    <li class="active"><a class="home" href="#">Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Budgets
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("StartPage", "Home")">All Budgets</a></li>
+                                <li><a href="@Url.Action("Details", "Budgets", new { id = budget.Value })">@budget.Key</a></li>
+                        </ul>
+                    </li>
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Details", "Budgets", new { Model.CurrentBudget })">All Categories</a></li>
+                                    <li><a href="@Url.Action("Details", "Categories", new { id = category.Value })">@category.Key</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Transactions
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Details", "Categories", new { Model.CurrentCategory })">All Transactions</a></li>
+                                    <li><a href="@Url.Action("Details", "Transactions", new { id = transaction.Value })">@transaction.Key</a></li>
+                            </ul>
+                        </li>
+                        //}
+                </ul>*@
+                @{ Html.RenderAction("Menu", "Home"); }
+                <div class="container body-content col-md-9">
+                    @RenderBody()
                 </div>
             </div>
         </div>
-        <div class="container body-content col-md-offset-2 col-md-10">
-            @RenderBody()
-        </div>
-
     </div>
-        <hr />
-        <footer>
-            <p>2015 - Financialtron &copy;</p>
-        </footer>
+    <hr />
+    <footer>
+        <p>2015 - Financialtron &copy;</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @*<script>
+        (function () {
+            var app = angular.module('inturests', []);
+
+            app.controller('financialCtrl', function ($sce, $scope, $http) {
+                this.interests = [];
+                $http.get('@Url.Action("List", "Interest")').success(function (data) {
+                    $scope.interests = data;
+                });
+
+                $scope.trustUrl = function (url) {
+                    return $sce.trustAsResourceUrl(url);
+                }
+
+                this.deletePin = function (ID, item) {
+                    $http.post('@Url.Action("Delete", "Interest")', { ID }).success(function () {
+                        var index = $scope.interests.indexOf(item);
+                        $scope.interests.splice(index, 1);
+                    });
+                };
+
+                this.addPin = function (ImageLink, url, Notes) {
+                    $http.post('@Url.Action("New", "Interest")', { ImageLink, url, Notes }).success(function (data) {
+                        $scope.interests.push(data);
+                        $('#myModal').modal('hide');
+                        $scope.Notes = '';
+                        $scope.url = '';
+                        $scope.ImageLink = '';
+                    });
+                };
+
+            });
+        })();*@
+
+    </script>
 </body>
 </html>

@@ -16,35 +16,46 @@ namespace Financial.Web.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Create(int categoryId)
+        public ActionResult Create(int? categoryId)
         {
-            TransactionVM transaction = new TransactionVM();
-            transaction.CategoryId = categoryId;
-            return View(transaction);
+            if (categoryId.HasValue)
+            {
+                TransactionVM transaction = new TransactionVM();
+                transaction.CategoryId = categoryId.Value;
+                return View(transaction);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        [HttpPost] 
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CategoryId,Amount,Title,Description")] TransactionVM transactionVM)
         {
             if (ModelState.IsValid)
             {
-                Category category = db.Categories.Find(transactionVM.CategoryId);
-
                 Transaction transaction = new Transaction();
                 transaction.Amount = transactionVM.Amount;
                 transaction.CreatedOn = DateTime.Now;
                 transaction.Description = transactionVM.Description;
                 transaction.Title = transactionVM.Title;
-                transaction.Category = category;
+                transaction.CategoryId = transactionVM.CategoryId;
 
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
 
                 // Checking to see if an email must be sent off
-                if (category.Balance > category.Limit)
+                var categoryInformation = db.Categories
+                    .Where(c => c.Id == transaction.CategoryId)
+                     .Select(a => new
+                     {
+                         Amount = a.Transactions.Select(t => t.Amount).Sum(),
+                         Limit = a.Limit,
+                     }).FirstOrDefault();
+
+                if (categoryInformation.Amount > categoryInformation.Limit)
                 {
                     List<string> users = new List<string>();
+                    Category category = db.Categories.Find(transaction.CategoryId);
                     users.AddRange(db.Budgets.Find(category.Budget.Id).Users.Select(user => user.UserName).ToList());
                     HomeController.EmailNotification(users, transaction, category);
                 }
@@ -68,10 +79,10 @@ namespace Financial.Web.Controllers
             }
             return View(transaction);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CreatedOn,Amount,Title,Description")] Transaction transaction)
+        public ActionResult Edit([Bind(Include = "Id,CreatedOn,Amount,Title,Description,CategoryId")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -79,18 +90,17 @@ namespace Financial.Web.Controllers
                 db.SaveChanges();
 
                 // Checking to see if an email must be sent off
-                Category category = db.Categories.Find(transaction.Category.Id);
-                var something = db.Categories.Where(c => c.Id == transaction.Category.Id)
-                    .Select(g => new
+                var categoryInformation = db.Categories.Where(c => c.Id == transaction.CategoryId)
+                    .Select(a => new
                     {
-                        Balance = g.Balance,
-                        Limit = g.Limit,
-                        BudgetId = g.Budget.Id
-                    });
-                if (category.Balance > category.Limit)
-                {
+                        Amount = a.Transactions.Select(t => t.Amount).Sum(),
+                        Limit = a.Limit,
+                    }).FirstOrDefault();
 
+                if (categoryInformation.Amount > categoryInformation.Limit)
+                {
                     List<string> users = new List<string>();
+                    Category category = db.Categories.Find(transaction.CategoryId);
                     users.AddRange(db.Budgets.Find(category.Budget.Id).Users.Select(user => user.UserName).ToList());
                     HomeController.EmailNotification(users, transaction, category);
                 }

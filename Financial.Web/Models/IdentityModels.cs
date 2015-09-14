@@ -23,6 +23,11 @@ namespace Financial.Web.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        internal ICollection<ApplicationUser> ToList()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

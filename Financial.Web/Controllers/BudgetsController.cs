@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Financial.Web.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Financial.Web.Controllers
 {
@@ -41,6 +42,10 @@ namespace Financial.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                budget.Users = new List<ApplicationUser>()
+                {
+                    db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId())
+                };
                 db.Budgets.Add(budget);
                 db.SaveChanges();
                 return RedirectToAction("StartPage", "Home");

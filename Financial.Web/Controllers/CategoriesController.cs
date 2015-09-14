@@ -29,11 +29,15 @@ namespace Financial.Web.Controllers
             return View(category);
         }
 
-        public ActionResult Create(int categoryId)
+        public ActionResult Create(int? categoryId)
         {
-            CategoryVM vm = new CategoryVM();
-            vm.BudgetId = categoryId;
-            return View(vm);
+            if (categoryId.HasValue)
+            {
+                CategoryVM vm = new CategoryVM();
+                vm.BudgetId = categoryId.Value;
+                return View(vm);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
@@ -72,7 +76,7 @@ namespace Financial.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Limit,Title,Description")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,Limit,Title,Description,BudgetId")] Category category)
         {
             if (ModelState.IsValid)
             {

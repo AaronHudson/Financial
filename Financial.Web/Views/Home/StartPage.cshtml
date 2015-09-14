@@ -11,21 +11,38 @@
     <a class="btn btn-primary" href="@Url.Action("Create", "Budgets")">Add a budget</a>
 </div>
 
-<div class="row">
-    <div>
-        <table class="table">
+<div class="table-responsive">
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    Budget
-                </td>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Users</th>
+                <th>Number of Categories</th>
             </tr>
-            @foreach (Financial.Web.Models.Budget budget in Model ) {
+        </thead>
+        <tbody>
+            @foreach (var budget in Model)
+            {
             <tr>
-                <td>
-                    @Html.ActionLink(budget.Title , "Details", "Budgets", new { id = budget.Id }, null)
-                </td>
+                <td>@budget.Title</td>
+                <td>@budget.Description</td>
+                <td>@for (int i = 0; i < budget.Users.Count(); i++)
+                {
+                    if (i == budget.Users.Count() - 1)
+                    {
+                        budget.Users.ElementAt(i).UserName.ToString();
+                        break;
+                    }
+                    String.Format("{0}, ", budget.Users.ElementAt(i).UserName);
+                } 
+                @foreach (var user in budget.Users)
+                {
+                    user.UserName.ToString();
+                }</td>
+                <td>@budget.Categories.Count()</td>
             </tr>
             }
-        </table>
-    </div>
-    </div>
+        </tbody>
+    </table>
+</div>

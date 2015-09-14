@@ -11,7 +11,9 @@ namespace Financial.Web.Models
     {
         public int Id { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
-        public Budget Budget { get; set; }
+        [ForeignKey("Budget")]
+        public int BudgetId { get; set; }
+        public virtual Budget Budget { get; set; }
         public decimal Limit { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
