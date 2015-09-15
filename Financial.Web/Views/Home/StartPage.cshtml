@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Financial.Web.Models.Budget>
 
 @{
-    ViewBag.Title = User.Identity.ToString() + "'s budgets";
+    ViewBag.Title = User.Identity.Name.ToString() + "'s budgets";
 }
 
 <div class="jumbotron">
