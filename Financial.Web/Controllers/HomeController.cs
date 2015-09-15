@@ -114,20 +114,14 @@ namespace Financial.Web.Controllers
             return View(id);
         }
 
-        public ActionResult CategoryAmounts(int Id)
+        public ActionResult CategoryAmounts(int id)
         {
-            Budget budget = db.Budgets.Find(Id);
-            List<decimal> balances = new List<decimal>();
-            foreach (Category category in budget.Categories)
-            {
-                balances.Add(category.Balance);
-            }
-            db.Budgets.Where(b => b.Id == Id)
+            var categories = db.Budgets.Where(b => b.Id == id)
                 .Select(b => b.Categories
-                .Select(c => c.Transactions
-                .Select(t => t.Amount).Sum()));
+                .Select(c => new { Value = c.Transactions
+                .Select(t => t.Amount).Sum(), Label = c.Title })).ToList();
 
-            return Json(balances);
+            return Json(categories, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ShareBudget(string[] userNames, int budgetId)

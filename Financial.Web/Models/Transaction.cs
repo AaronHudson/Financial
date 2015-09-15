@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Financial.Web.Models
@@ -8,6 +9,7 @@ namespace Financial.Web.Models
     {
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
+        [RegularExpression(@"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$")]
         public decimal Amount { get; set; }
         [ForeignKey("Category")]
         public int CategoryId { get; set; }

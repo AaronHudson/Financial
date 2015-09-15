@@ -7,6 +7,12 @@
 <div>
     <h4>@Model.Title</h4>
     <hr />
+    @if (Model.Categories == null)
+    {
+        <p>I'm sorry, there aren't any categories to display yet.</p>
+    }
+    else
+    {
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -20,22 +26,25 @@
             </thead>
             <tbody>
                 @foreach (var category in Model.Categories)
-                 {
+                {
                     <tr>
                         <td>@Html.ActionLink(category.Title, "Details", "Categories", new { id = category.Id }, null)</td>
                         <td>@category.Description</td>
                         <td>@String.Format("{0:C}", category.Balance)</td>
                         <td>@String.Format("{0:C}", category.Limit)</td>
                         <td>@category.Transactions.Count()</td>
-                        <td>@Html.ActionLink("Edit", "Edit", "Categories", new { id = category.Id }, null) | @Html.ActionLink("Delete", "Delete", "Categories",new { id = category.Id }, null)</td>
+                        <td>@Html.ActionLink("Edit", "Edit", "Categories", new { id = category.Id }, null) | @Html.ActionLink("Delete", "Delete", "Categories", new { id = category.Id }, null)</td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+    }
 </div>
 <p>
     @Html.ActionLink("Create a category", "Create", "Categories", new { categoryId = Model.Id }, null) |
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to budgets", "StartPage", "Home")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    <br/>
+    
+    @Html.ActionLink("Share with a user", "ShareBudget", "Home", new { id = Model.Id }, null)
 </p>
