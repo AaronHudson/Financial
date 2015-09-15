@@ -55,7 +55,7 @@ namespace Financial.Web.Controllers
 
                 db.Categories.Add(category);
                 db.SaveChanges();
-                return RedirectToAction("StartPage", "Home");
+                return RedirectToAction("Details", "Budgets", new { id = category.BudgetId });
             }
 
             return View(categoryVM);

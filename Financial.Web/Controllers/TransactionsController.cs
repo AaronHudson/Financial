@@ -61,7 +61,7 @@ namespace Financial.Web.Controllers
                     HomeController.EmailNotification(users, transaction, category);
                 }
 
-                return RedirectToAction("StartPage", "Home");
+                return RedirectToAction("Details", "Categories", new { id = transaction.CategoryId });
             }
 
             return View(transactionVM);
