@@ -10,7 +10,7 @@ namespace Financial.Web.Models
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
         [Required]
-        [RegularExpression(@"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$", ErrorMessage = "I'm sorry, this doesn't seem to match a US currency.")]
+        [RegularExpression(@"^(\$?\d{1,3}(,?\d{3})?(\.\d\d?)?|\(\$?\d{1,3}(,?\d{3})?(\.\d\d?)?\))$", ErrorMessage = "I'm sorry, this doesn't seem to match a US currency.")]
         public decimal Amount { get; set; }
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
