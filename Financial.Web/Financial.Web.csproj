@@ -185,7 +185,16 @@
     <Compile Include="Migrations\201509151838525_Initial.Designer.cs">
       <DependentUpon>201509151838525_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509151855194_ChangedRegexFlag.cs" />
+    <Compile Include="Migrations\201509151855194_ChangedRegexFlag.Designer.cs">
+      <DependentUpon>201509151855194_ChangedRegexFlag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509151933141_AddedRequired.cs" />
+    <Compile Include="Migrations\201509151933141_AddedRequired.Designer.cs">
+      <DependentUpon>201509151933141_AddedRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BudgetVM.cs" />
     <Compile Include="Models\MenuVM.cs" />
     <Compile Include="Models\TransactionVM.cs" />
     <Compile Include="Global.asax.cs">
@@ -1072,6 +1081,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201509151838525_Initial.resx">
       <DependentUpon>201509151838525_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509151855194_ChangedRegexFlag.resx">
+      <DependentUpon>201509151855194_ChangedRegexFlag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509151933141_AddedRequired.resx">
+      <DependentUpon>201509151933141_AddedRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Financial.Web.Models;
 using Microsoft.AspNet.Identity;
+using System.Globalization;
 
 namespace Financial.Web.Controllers
 {
@@ -34,7 +35,7 @@ namespace Financial.Web.Controllers
             if (ModelState.IsValid)
             {
                 Transaction transaction = new Transaction();
-                transaction.Amount = transactionVM.Amount;
+                transaction.Amount = Decimal.Parse(transactionVM.Amount, NumberStyles.Currency);
                 transaction.CreatedOn = DateTime.Now;
                 transaction.Description = transactionVM.Description;
                 transaction.Title = transactionVM.Title;

@@ -1,4 +1,4 @@
-﻿@model Financial.Web.Models.Budget
+﻿@model Financial.Web.Models.BudgetVM
 
 @{
     ViewBag.Title = Model.Title;
@@ -42,9 +42,23 @@
     }
 </div>
 <p>
+    @*@Html.EditorFor(x => x.User)*@
     @Html.ActionLink("Create a category", "Create", "Categories", new { categoryId = Model.Id }, null) |
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
     <br/>
     
-    @Html.ActionLink("Share with a user", "ShareBudget", "Home", new { id = Model.Id }, null)
+    @*@Html.ActionLink("Share with a user", "ShareBudget", "Home", new { userName = Model.User, budgetId = Model.Id }, null)*@
 </p>
+
+@*@section scripts {
+    <script>
+        $.ajax({
+            type: "POST",
+            url: $("@Url.Action("ShareBudget", "Home")").attr("href"),
+            data: $("#user", "@Model.Id").serialize(), 
+            success: function (data) {
+                alert(data);
+            }
+        });
+    </script>
+    }*@

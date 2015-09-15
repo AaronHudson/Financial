@@ -124,12 +124,9 @@ namespace Financial.Web.Controllers
             return Json(categories, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ShareBudget(string[] userNames, int budgetId)
+        public ActionResult ShareBudget(string userName, int budgetId)
         {
-            foreach (var userName in userNames)
-            {
                 db.Users.FirstOrDefault(user => user.UserName == userName).Budgets.Add(db.Budgets.Find(budgetId));
-            }
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 

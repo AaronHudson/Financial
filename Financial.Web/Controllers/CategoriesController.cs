@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Financial.Web.Models;
+using System.Globalization;
 
 namespace Financial.Web.Controllers
 {
@@ -48,7 +49,7 @@ namespace Financial.Web.Controllers
             {
                 Category category = new Category();
                 category.Description = categoryVM.Description;
-                category.Limit = categoryVM.Limit;
+                category.Limit = Decimal.Parse(categoryVM.Limit, NumberStyles.Currency);
                 category.Title = categoryVM.Title;
                 category.Budget = db.Budgets.Find(categoryVM.BudgetId);
 

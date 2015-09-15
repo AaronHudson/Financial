@@ -11,8 +11,8 @@ namespace Financial.Web.Models
     public class CategoryVM
     {
         [Required]
-        [RegularExpression(@"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$")]
-        public decimal Limit { get; set; }
+        [RegularExpression(@"^(\$?\d{1,3}(,?\d{3})?(\.\d\d?)?|\(\$?\d{1,3}(,?\d{3})?(\.\d\d?)?\))$", ErrorMessage ="I'm sorry, this doesn't appear to match a US currency.")]
+        public string Limit { get; set; }
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }

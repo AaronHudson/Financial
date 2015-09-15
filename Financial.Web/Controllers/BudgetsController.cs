@@ -23,11 +23,17 @@ namespace Financial.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Budget budget = db.Budgets.Find(id);
+            BudgetVM budgetVM = new BudgetVM();
+            budgetVM.Categories = budget.Categories;
+            budgetVM.Description = budget.Description;
+            budgetVM.Id = budget.Id;
+            budgetVM.Title = budget.Title;
+            budgetVM.Users = budget.Users;
             if (budget == null)
             {
                 return HttpNotFound();
             }
-            return View(budget);
+            return View(budgetVM);
         }
 
         public ActionResult Create()

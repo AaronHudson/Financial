@@ -10,8 +10,8 @@ namespace Financial.Web.Models
     {
         public int CategoryId { get; set; }
         [Required]
-        [RegularExpression(@"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$")]
-        public decimal Amount { get; set; }
+        [RegularExpression(@"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$", ErrorMessage ="I'm sorry, this doesn't seem to match a US currency.")]
+        public string Amount { get; set; }
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
