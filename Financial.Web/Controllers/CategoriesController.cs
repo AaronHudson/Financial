@@ -20,7 +20,7 @@ namespace Financial.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("BadRequest", "Home");
             }
             Category category = db.Categories.Find(id);
             if (category == null)
@@ -38,7 +38,7 @@ namespace Financial.Web.Controllers
                 vm.BudgetId = categoryId.Value;
                 return View(vm);
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            return RedirectToAction("BadRequest", "Home");
         }
 
         [HttpPost]
@@ -65,7 +65,7 @@ namespace Financial.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("BadRequest", "Home");
             }
             Category category = db.Categories.Find(id);
             if (category == null)
@@ -92,12 +92,12 @@ namespace Financial.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("BadRequest", "Home");
             }
             Category category = db.Categories.Find(id);
             if (category == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("BadRequest", "Home");
             }
             return View(category);
         }

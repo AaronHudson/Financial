@@ -17,6 +17,12 @@ namespace Financial.Web.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
 
         [AllowAnonymous]
+        public ActionResult BadRequest()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
         public ActionResult Index()
         {
             if (Request.IsAuthenticated)
@@ -60,6 +66,7 @@ namespace Financial.Web.Controllers
             Int32.TryParse(parameter.ToString(), out id);
 
                     menuVM.HasCategories = true;
+            menuVM.CurrentBudget = db.Categories.Find(id).BudgetId;
 
                     var categories = from category in db.Categories
                                  where category.Id == id

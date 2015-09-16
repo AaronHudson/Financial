@@ -20,7 +20,7 @@ namespace Financial.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("BadRequest", "Home");
             }
             Budget budget = db.Budgets.Find(id);
             BudgetVM budgetVM = new BudgetVM();
@@ -31,7 +31,7 @@ namespace Financial.Web.Controllers
             budgetVM.Users = budget.Users;
             if (budget == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("BadRequest", "Home");
             }
             return View(budgetVM);
         }
@@ -91,12 +91,12 @@ namespace Financial.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("BadRequest", "Home");
             }
             Budget budget = db.Budgets.Find(id);
             if (budget == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("BadRequest", "Home");
             }
             return View(budget);
         }

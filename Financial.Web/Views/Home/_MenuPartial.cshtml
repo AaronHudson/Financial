@@ -1,6 +1,6 @@
 ﻿@model Financial.Web.Models.MenuVM
 
-<ul class="nav nav-pills nav-stacked col-md-2">
+<ul class="nav nav-pills nav-stacked col-md-2 collapse navbar-collapse">
     <li class="active"><a class="home" href="#">Welcome</a></li>
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -21,7 +21,7 @@
             Categories
         </a>
         <ul class="dropdown-menu">
-            @*<li><a href="@Url.Action("Details", "Budgets", new { id = Model.CurrentBudget })">All Categories</a></li>*@
+            <li><a href="@Url.Action("Details", "Budgets", new { id = Model.CurrentBudget })">All Categories</a></li>
             @foreach (KeyValuePair<string, int> category in Model.Categories)
             {
                 <li><a href="@Url.Action("Details", "Categories", new { id = category.Value })">@category.Key</a></li>

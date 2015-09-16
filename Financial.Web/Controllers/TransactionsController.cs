@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Financial.Web.Models;
 using Microsoft.AspNet.Identity;
 using System.Globalization;
+using System.Collections;
 
 namespace Financial.Web.Controllers
 {
@@ -23,9 +24,17 @@ namespace Financial.Web.Controllers
             {
                 TransactionVM transaction = new TransactionVM();
                 transaction.CategoryId = categoryId.Value;
+                var query = from category in db.Categories
+                            where category.Id == categoryId
+                            join budget in db.Budgets on category.BudgetId equals budget.Id
+                            select budget.Categories; ;
+                var dictionary = query.SelectMany(cs => cs
+                    .Select(c => new { Key = c.Title, Value = c.Id }))
+                    .ToDictionary(k => k.Key, v => v.Value);
+                transaction.Categories = new SelectList((IEnumerable)dictionary, "Value", "Key");
                 return View(transaction);
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            return RedirectToAction("BadRequest", "Home");
         }
 
         [HttpPost]
@@ -71,12 +80,12 @@ namespace Financial.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("BadRequest", "Home");
             }
             Transaction transaction = db.Transactions.Find(id);
             if (transaction == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("BadRequest", "Home");
             }
             return View(transaction);
         }
@@ -115,7 +124,7 @@ namespace Financial.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("BadRequest", "Home");
             }
             Transaction transaction = db.Transactions.Find(id);
             if (transaction == null)

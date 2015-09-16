@@ -1066,6 +1066,7 @@
     <Content Include="Views\Home\_MenuPartial.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Home\Graph.cshtml" />
+    <Content Include="Views\Home\BadRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
