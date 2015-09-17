@@ -18,7 +18,7 @@ namespace Financial.Web.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Create(int? categoryId)
+        public ActionResult Create(int? categoryId, int? budgetId)
         {
             if (categoryId.HasValue)
             {
@@ -29,6 +29,19 @@ namespace Financial.Web.Controllers
                             join budget in db.Budgets on category.BudgetId equals budget.Id
                             select budget.Categories; ;
                 var dictionary = query.SelectMany(cs => cs
+                    .Select(c => new { Key = c.Title, Value = c.Id }))
+                    .ToDictionary(k => k.Key, v => v.Value);
+                transaction.Categories = new SelectList((IEnumerable)dictionary, "Value", "Key");
+                return View(transaction);
+            }else
+            if (budgetId.HasValue)
+            {
+                TransactionVM transaction = new TransactionVM();
+                var budget = budgetId.Value;
+                var dictionary = db.Budgets
+                    .Where(b => b.Id == budget)
+                    .Select(b => b.Categories)
+                    .SelectMany(cs => cs
                     .Select(c => new { Key = c.Title, Value = c.Id }))
                     .ToDictionary(k => k.Key, v => v.Value);
                 transaction.Categories = new SelectList((IEnumerable)dictionary, "Value", "Key");

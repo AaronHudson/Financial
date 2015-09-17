@@ -47,6 +47,10 @@ namespace Financial.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (db.Categories.Any(b => b.Title == categoryVM.Title))
+                {
+                    return View(categoryVM);
+                }
                 Category category = new Category();
                 category.Description = categoryVM.Description;
                 category.Limit = Decimal.Parse(categoryVM.Limit, NumberStyles.Currency);
@@ -81,6 +85,10 @@ namespace Financial.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (db.Categories.Any(b => b.Title == category.Title))
+                {
+                    return View(category);
+                }
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("StartPage", "Home");

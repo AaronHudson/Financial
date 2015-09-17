@@ -20,7 +20,7 @@
             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Title, "Title is required, and must be unique.", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -28,7 +28,7 @@
             @Html.LabelFor(model => model.Limit, htmlAttributes: new Dictionary<string, object> { {"data-toggle", "tooltip" }, { "title", "This is the maximum amount you'd like to ideally spend." }, { "class", "control-label col-md-2" } })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Limit, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Limit, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Limit, "Goal is required.", new { @class = "text-danger" })
             </div>
         </div>
 

@@ -48,10 +48,15 @@ namespace Financial.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                budget.Users = new List<ApplicationUser>()
+                if (db.Budgets.Any(b => b.Title == budget.Title))
+                {
+                    return View(budget);
+                }
+                    budget.Users = new List<ApplicationUser>()
                 {
                     db.Users.Find(System.Web.HttpContext.Current.User.Identity.GetUserId())
                 };
+                
                 db.Budgets.Add(budget);
                 db.SaveChanges();
                 return RedirectToAction("StartPage", "Home");
@@ -80,6 +85,10 @@ namespace Financial.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (db.Budgets.Any(b => b.Title == budget.Title))
+                {
+                    return View(budget);
+                }
                 db.Entry(budget).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("StartPage", "Home");

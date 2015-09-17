@@ -10,7 +10,7 @@ namespace Financial.Web.Models
     public class Budget
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Title is required, and must be unique.")]
         public string Title { get; set; }
         public string Description { get; set; }
         public virtual ICollection<Category> Categories { get; set; }

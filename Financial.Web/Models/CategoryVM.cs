@@ -15,7 +15,7 @@ namespace Financial.Web.Models
         [RegularExpression(@"^(\$?\d{1,3}(,?\d{3})?(\.\d\d?)?|\(\$?\d{1,3}(,?\d{3})?(\.\d\d?)?\))$", ErrorMessage ="I'm sorry, this doesn't appear to match a US currency.")]
         [DisplayName("Goal")]
         public string Limit { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Title is required, and must be unique.")]
         public string Title { get; set; }
         public string Description { get; set; }
         public int BudgetId { get; set; }

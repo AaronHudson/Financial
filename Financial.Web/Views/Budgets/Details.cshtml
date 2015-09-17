@@ -43,7 +43,7 @@
 </div>
 <p>
     @*@Html.EditorFor(x => x.User)*@
-    @Html.ActionLink("Create a category", "Create", "Categories", new { categoryId = Model.Id }, new { @class = "btn btn-default" })   @Html.ActionLink("Graph", "Graph", "Home", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Create a category", "Create", "Categories", new { categoryId = Model.Id }, new { @class = "btn btn-default" })   @Html.ActionLink("Graph", "Graph", "Home", new { id = Model.Id }, new { @class = "btn btn-default" })  @Html.ActionLink("Add a transaction", "Create", "Transactions", new { budgetId = Model.Id }, new { @class = "btn btn-default" })
     <br/>
     @Html.ActionLink("Edit budget", "Edit", new { id = Model.Id })
     <br/>

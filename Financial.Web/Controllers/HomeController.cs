@@ -55,7 +55,7 @@ namespace Financial.Web.Controllers
             .Select(b => new { Key = b.Title, Value = b.Id })
             .ToDictionary(k => k.Key, v => v.Value);
 
-            if (currentController == "Budgets" || (currentAction == "Create"/* && currentController != "Transactions"*/))
+            if (currentController == "Budgets" || currentAction == "Create")
             {
                 return PartialView("_MenuPartial", menuVM);
             }
