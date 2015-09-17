@@ -17,6 +17,7 @@ namespace Financial.Web.Models
         public virtual Budget Budget { get; set; }
         [Required]
         [RegularExpression(@"^(\$?\d{1,3}(,?\d{3})?(\.\d\d?)?|\(\$?\d{1,3}(,?\d{3})?(\.\d\d?)?\))$", ErrorMessage = "I'm sorry, this doesn't seem to match a US currency.")]
+        [Display(Name = "Goal")]
         public decimal Limit { get; set; }
         [Required]
         public string Title { get; set; }
@@ -26,6 +27,7 @@ namespace Financial.Web.Models
             get
             {
                 decimal sum = 0;
+                if (Transactions != null)
                 foreach (Transaction transaction in Transactions)
                 {
                     sum += transaction.Amount;

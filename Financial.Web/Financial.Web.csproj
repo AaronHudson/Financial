@@ -195,6 +195,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BudgetVM.cs" />
+    <Compile Include="Models\Graph.cs" />
     <Compile Include="Models\MenuVM.cs" />
     <Compile Include="Models\TransactionVM.cs" />
     <Compile Include="Global.asax.cs">

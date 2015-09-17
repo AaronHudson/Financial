@@ -21,46 +21,14 @@
     </div>
     <hr />
     <footer>
-        <p>2015 - Financialtron &copy;</p>
+        <div style="padding: 2%;">
+            <p>2015 - Financialtron &copy;</p>
+        </div>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    @*<script>
-        (function () {
-            var app = angular.module('inturests', []);
-
-            app.controller('financialCtrl', function ($sce, $scope, $http) {
-                this.interests = [];
-                $http.get('@Url.Action("List", "Interest")').success(function (data) {
-                    $scope.interests = data;
-                });
-
-                $scope.trustUrl = function (url) {
-                    return $sce.trustAsResourceUrl(url);
-                }
-
-                this.deletePin = function (ID, item) {
-                    $http.post('@Url.Action("Delete", "Interest")', { ID }).success(function () {
-                        var index = $scope.interests.indexOf(item);
-                        $scope.interests.splice(index, 1);
-                    });
-                };
-
-                this.addPin = function (ImageLink, url, Notes) {
-                    $http.post('@Url.Action("New", "Interest")', { ImageLink, url, Notes }).success(function (data) {
-                        $scope.interests.push(data);
-                        $('#myModal').modal('hide');
-                        $scope.Notes = '';
-                        $scope.url = '';
-                        $scope.ImageLink = '';
-                    });
-                };
-
-            });
-        })();*@
-
-    </script>
+   
 </body>
 </html>

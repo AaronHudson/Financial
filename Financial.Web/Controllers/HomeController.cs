@@ -115,10 +115,23 @@ namespace Financial.Web.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("BadRequest","Home");
+            }
+            var categories = db.Categories.Where(c => c.BudgetId == id).ToList();
+            //var category = db.Categories
+            //    .Where(c => c.BudgetId == id)
+            //    .Join(db.Transactions, c => c.Id, t => t.CategoryId, (c, t) => c)
+            //    .Select(c => new { Key = c.Title, Value = c.Transactions })
+            //    .ToDictionary(k => k.Key, v => v.Value);
+
+            Dictionary<string, decimal> data = new Dictionary<string, decimal>();
+
+            foreach (var item in categories)
+            {
+                data.Add(item.Title, item.Transactions.Select(t => t.Amount).Sum());
             }
 
-            return View(id);
+            return View(data);
         }
 
         public ActionResult CategoryAmounts(int id)

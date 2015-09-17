@@ -20,7 +20,7 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Balance</th>
-                    <th>Limit</th>
+                    <th data-toggle="tooltip" title="This is the maximum amount of money you'd like to ideally spend.">Goal</th>
                     <th># Of Transactions</th>
                 </tr>
             </thead>
@@ -43,23 +43,8 @@
 </div>
 <p>
     @*@Html.EditorFor(x => x.User)*@
-    @Html.ActionLink("Create a category", "Create", "Categories", new { categoryId = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Create a category", "Create", "Categories", new { categoryId = Model.Id }, new { @class = "btn btn-default" })   @Html.ActionLink("Graph", "Graph", "Home", new { id = Model.Id }, new { @class = "btn btn-default" })
     <br/>
     @Html.ActionLink("Edit budget", "Edit", new { id = Model.Id })
     <br/>
-    
-    @*@Html.ActionLink("Share with a user", "ShareBudget", "Home", new { userName = Model.User, budgetId = Model.Id }, null)*@
 </p>
-
-@*@section scripts {
-    <script>
-        $.ajax({
-            type: "POST",
-            url: $("@Url.Action("ShareBudget", "Home")").attr("href"),
-            data: $("#user", "@Model.Id").serialize(), 
-            success: function (data) {
-                alert(data);
-            }
-        });
-    </script>
-    }*@
