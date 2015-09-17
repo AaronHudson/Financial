@@ -42,7 +42,7 @@ namespace Financial.Web.Controllers
             var rd = ControllerContext.ParentActionViewContext.RouteData;
             var currentAction = rd.GetRequiredString("action");
 
-            if (currentAction != "Details")
+            if (currentAction == "StartPage" || currentAction == "Index" || currentAction == "BadRequest")
             {
                 return PartialView("_MenuPartial", menuVM);
             }
@@ -55,7 +55,7 @@ namespace Financial.Web.Controllers
             .Select(b => new { Key = b.Title, Value = b.Id })
             .ToDictionary(k => k.Key, v => v.Value);
 
-            if (currentController == "Budgets")
+            if (currentController == "Budgets" || (currentAction == "Create"/* && currentController != "Transactions"*/))
             {
                 return PartialView("_MenuPartial", menuVM);
             }
